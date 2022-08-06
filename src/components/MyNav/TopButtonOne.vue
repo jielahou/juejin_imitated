@@ -1,7 +1,7 @@
 <!-- 首页 沸点 这种按钮 -->
 <template>
-    <!-- <a :class="classObj" :href="info.url"> -->
-    <a :class="classObj">
+    <a :class="classObj" :href="info.url">
+    <!-- <a :class="classObj"> -->
         {{info.name}}
         <span class="label"></span>
     </a>
