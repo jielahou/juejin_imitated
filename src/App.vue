@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <MyNav></MyNav>
-    <EntryList></EntryList>
+    <!-- <EntryList></EntryList> -->
   </div>
 </template>
 
