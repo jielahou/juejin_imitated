@@ -3,18 +3,25 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <EntryList :author="String(233)"></EntryList>
+    <MyNav></MyNav>
+    <!-- <EntryList></EntryList> -->
+    <AuthorInfo></AuthorInfo>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import EntryList from './components/page/EntryList.vue'
+import MyNav from './components/MyNav/MyNav.vue';
+import AuthorInfo from './components/page/AuthorInfo.vue';
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
     EntryList,
+    MyNav,
+    AuthorInfo
   }
 }
 </script>
