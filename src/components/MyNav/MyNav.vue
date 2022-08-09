@@ -44,7 +44,8 @@ import BoxTwo from './BoxTwo.vue';
     justify-content: space-between;
 
     padding-left: 20px;
-
+    z-index: 999;
+    background-color: #fff;
     .logo-img {
     display: block;
     width: 124px;

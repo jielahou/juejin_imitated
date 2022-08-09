@@ -1,38 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <EntryList :author="String(233)"></EntryList>
     <MyNav></MyNav>
-    <!-- <EntryList></EntryList> -->
-    <AuthorInfo></AuthorInfo>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import EntryList from './components/page/EntryList.vue'
 import MyNav from './components/MyNav/MyNav.vue';
-import AuthorInfo from './components/page/AuthorInfo.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
-    EntryList,
-    MyNav,
-    AuthorInfo
+    MyNav
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  margin: 0px;
 }
 </style>
