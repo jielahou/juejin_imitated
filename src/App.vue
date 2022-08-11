@@ -20,4 +20,8 @@ export default {
 * {
   margin: 0px;
 }
+
+body {
+  background-color: #f4f5f5;
+}
 </style>
