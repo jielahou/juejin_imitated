@@ -1,30 +1,27 @@
 <template>
   <div id="app">
     <MyNav></MyNav>
-    <!-- <EntryList></EntryList> -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import MyNav from './components/MyNav/MyNav.vue';
-import EntryList from './components/page/EntryList.vue';
 
 export default {
   name: 'App',
   components: {
-    MyNav,
-    EntryList
-}
+    MyNav
+  }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  margin: 0px;
+}
+
+body {
+  background-color: #f4f5f5;
 }
 </style>

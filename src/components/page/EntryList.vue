@@ -9,24 +9,24 @@
                         trigger="hover"
                     >
                         <div class="author-basic">
-                          <a href="/user/1204720472953240" target="_blank" rel=""><img src="https://p3-passport.byteacctimg.com/img/user-avatar/3cc923506359b8170e1d8b9051bb2bef~300x300.image" alt="jsmask的头像" class="lazy avatar avatar" data-src="https://p3-passport.byteacctimg.com/img/user-avatar/3cc923506359b8170e1d8b9051bb2bef~300x300.image"></a>
+                          <a :href="author.link" target="_blank" rel=""><img src="https://p3-passport.byteacctimg.com/img/user-avatar/3cc923506359b8170e1d8b9051bb2bef~300x300.image" alt="jsmask的头像" class="lazy avatar avatar" data-src="https://p3-passport.byteacctimg.com/img/user-avatar/3cc923506359b8170e1d8b9051bb2bef~300x300.image"></a>
                           <div class="author-info">
-                              <a href="/user/1204720472953240" class="author-name"><span>{{ author }}</span></a>
+                              <a href="author.link" class="author-name"><span>{{ author.name }}</span></a>
                               <div class="author-title">职业工程师</div>
                           </div>
                         </div>
                         <div class="popover-box user-popover" slot="reference">
                             <!---->
-                            {{ author }}
+                            {{ author.name }}
                         </div>
                     </el-popover>
                
                 <div class="line"></div>
-                <div class="date">{{ time }}</div>
+                <div class="date">{{ article.time }}</div>
                 <div class="line"></div>
                 <div class="tag_list">
-                    <a :href="tag_link" target="_blank" rel="" class="tag">
-                        {{ tag }}
+                    <a :href="article.tag_link" target="_blank" rel="" class="tag">
+                        {{ article.tag }}
                     </a>
                 </div>
             </div>
@@ -36,30 +36,30 @@
                     <div class="content-main">
                         <div class="title-row">
                             <a
-                                :href="page_link"
+                                :href="article.link"
                                 target="_blank"
                                 rel=""
-                                :title="title"
+                                :title="article.title"
                                 class="title"
-                                >{{ title }}</a
+                                >{{ article.title }}</a
                             >
                         </div>
                         <div class="abstract">
-                            <a :href="page_link" target="_blank" rel="">
+                            <a :href="article.link" target="_blank" rel="">
                                 <div>
-                                    {{ desc }}
+                                    {{ article.desc }}
                                 </div>
                             </a>
                         </div>
                         <ul class="action-list">
                             <li class="item view">
-                                <i></i> <span> {{ views }} </span>
+                                <i></i> <span> {{ article.views }} </span>
                             </li>
                             <li class="item like">
-                                <i></i><span> {{ likes }} </span>
+                                <i></i><span> {{ article.likes }} </span>
                             </li>
                             <li class="item comment">
-                                <i></i><span> {{ comments }} </span>
+                                <i></i><span> {{ article.comments }} </span>
                             </li>
                             <!---->
                         </ul>
@@ -78,17 +78,8 @@
 export default {
     name: "EntryList",
     props: {
-        author: String,
-        authorlink: String,
-        time: String,
-        tag: String,
-        tag_link: String,
-        title: String,
-        page_link: String,
-        desc: String,
-        views: Number,
-        likes: Number,
-        comments: Number,
+        author: Object,
+        article: Object
     },
     methods: {
 
