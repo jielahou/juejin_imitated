@@ -2,8 +2,6 @@
 <div class="markdown-body">
   <my-markdown v-highlight></my-markdown>
 </div>
-
-
 </template>
 
 <script>
