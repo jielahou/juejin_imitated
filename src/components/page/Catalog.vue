@@ -1,5 +1,5 @@
 <template>
-    <div id="catalog">
+    <div id="catalog" >
       <el-tabs tab-position="right" @tab-click="clickEvent">
         <el-tab-pane
             v-for="item in catalogData"

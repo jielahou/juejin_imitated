@@ -1,5 +1,5 @@
 <template>
-    <div class="top-nav">
+    <div :class="['top-nav', isHidden ? 'hidden' : '']">
         <div class="floor-1">
             <div class="floor-1-container">
                 <div class="'logo'"><a href=""><img class="logo-img" src="//lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/e08da34488b114bd4c665ba2fa520a31.svg" alt="稀土掘金"/></a></div>
@@ -11,7 +11,7 @@
                 </div>
                 <div :class="['search-and-creatorcenter', isSearchFocus ? 'focus' : '']">
                     <div class="search">
-                        <input @focusout="searchFocusoutHandler" @focusin="searchFocusinHandler" placeholder="探索稀土掘金" type="text" class="input"/>
+                        <input @focusout="searchFocusoutHandler" @focusin="searchFocusinHandler" :placeholder="placeholder" type="text" class="input"/>
                         <div class="search-icon">
                             <img 
                             :src="isSearchFocus ? '//lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/6dbcdb42ffe8d518a318a5e26efade18.svg' : '//lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/1e8ab9a22f0ddc36349f60b38900d0bd.svg'"
@@ -49,83 +49,169 @@
                 <img class="avatar" src="https://p6-passport.byteacctimg.com/img/user-avatar/c6869eb6d43442a2ac64ce4e58874273~300x300.image" alt="Orphea的头像" data-src="https://p6-passport.byteacctimg.com/img/user-avatar/c6869eb6d43442a2ac64ce4e58874273~300x300.image" loading="lazy"/>                        
             </div>
         </div>
-        <div class="floor-2">
-            <div class="tabs-lv2">
-                
+        <div class="floor-2" v-if="idActivate !== -1 && tabsLv1Info[idActivate].items != undefined" :key="idActivate">
+            <div class="floor-2-container">
+                <div class="tabs-lv2">
+                    <div class="item" v-for="(item, i) in tabsLv1Info[idActivate].items" :key="i">
+                        <div :class="['title', item.isActivate ? 'activate' : '']">{{item.title}}</div>                    
+                    </div>
+                </div>
+                <div class="tabs-manager" v-show="idActivate === 0">标签管理</div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { watch } from 'fs';
-
     export default {
+        props: {
+            // 激活项的id, 若为-1则都不激活, 默认为-1
+            idActivated: {
+                type: Number,
+                default: -1
+            }
+        },
         data() {
             return {
                 tabsLv1Info: [
                     {
-                        id: 1,
+                        id: 0,
                         title: '首页',
-                        isActivate: true
+                        isActivate: false,
+                        items: [
+                            {
+                                title: '综合',
+                                isActivate: true,
+                            },
+                            {
+                                title: '关注',
+                                isActivate: false,
+                            },
+                            {
+                                title: '后端',
+                                isActivate: false,
+                            },
+                            {
+                                title: '前端',
+                                isActivate: false,
+                            },
+                            {
+                                title: 'Android',
+                                isActivate: false,
+                            },
+                            {
+                                title: 'iOS',
+                                isActivate: false,
+                            },
+                            {
+                                title: '人工智能',
+                                isActivate: false,
+                            },
+                            {
+                                title: '开发工具',
+                                isActivate: false,
+                            },
+                            {
+                                title: '代码人生',
+                                isActivate: false,
+                            },
+                            {
+                                title: '阅读',
+                                isActivate: false,
+                            },
+                        ]
                     },
                     {
-                        id: 2,
+                        id: 1,
                         title: '沸点',
                         isActivate: false
                     },
                     {
-                        id: 3,
+                        id: 2,
                         title: '课程',
                         isActivate: false
                     },
                     {
-                        id: 4,
+                        id: 3,
                         title: '直播',
                         isActivate: false
                     },
                     {
-                        id: 5,
+                        id: 4,
                         title: '活动',
                         isActivate: false
                     },
                     {
-                        id: 6,
+                        id: 5,
                         title: '商城',
                         isActivate: false
                     },
                     {
-                        id: 7,
+                        id: 6,
                         title: 'APP',
                         isActivate: false
                     },
                     {
-                        id: 8,
+                        id: 7,
                         title: '插件',
                         isActivate: false
                     }
                 ],
+                idActivate: -1,
 
                 // 搜索栏是否获得焦点
                 isSearchFocus: false,
+                placeholder: '探索稀土掘金',
                 
                 // 创造者中心是否展开
-                isCenterUnfold: false
+                isCenterUnfold: false,
+
+                // 因下滑是否隐藏
+                isHidden: false,
+                // 下滑距离
+                scrollTop: 0
             }
+        },
+        mounted() {
+            window.addEventListener("scroll", this.setScrollTop)
+
+            if(this.idActivate !== -1) {
+                this.idActivate = this.idActivated
+                this.tabsLv1Info[this.idActivate].isActivate = true
+            }
+        },
+        beforeDestory() {
+            window.removeEventListener("scroll", this.setScrollTop)
         },
         methods: {
             changeTabLv1(item) {
                 this.tabsLv1Info.forEach(tab => tab.isActivate = false)
                 item.isActivate = true
+                this.idActivate = item.id
             },
             searchFocusinHandler() {
                 this.isSearchFocus = true
+                this.placeholder = '探索文章/小册/标签/用户'
             },
             searchFocusoutHandler() {
                 this.isSearchFocus = false
+                this.placeholder = '探索稀土掘金'
             },
             unfoldOrFoldList() {
                 this.isCenterUnfold = !this.isCenterUnfold
+            },
+            setScrollTop() {
+                this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+            }
+        },
+        watch: {
+            scrollTop(scrollTop) {
+                // console.log(scrollTop)
+                if(scrollTop >= 550) {
+                    this.isHidden = true
+                } else {
+                    this.isHidden = false
+                }
             }
         }
     }
@@ -138,7 +224,17 @@ import { watch } from 'fs';
 
 .top-nav {
     background-color: #FFFFFF;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    transition: top 0.3s;
+    top: 0;
+    left: 0;
 
+    &.hidden {
+        top: -60px;
+        transition: top 0.3s;
+    }
     .floor-1 {
         display: flex;
         justify-content: center;
@@ -148,7 +244,17 @@ import { watch } from 'fs';
             display: flex;
             align-items: center;
 
-
+            .logo {
+                width: 107px;
+                height: 22px;
+                .img {
+                    width: 107px;
+                    height: 22px;
+                }
+                &:hover {
+                    cursor: pointer;
+                }
+            }
 
             .tabs-lv1 {
                 display: flex;
@@ -325,7 +431,7 @@ import { watch } from 'fs';
                     .search {
                         border: 1px solid #1E80FF;
                         width: 485px;
-                        transition: width .3s;
+                        transition: width .2s;
 
                         .search-icon {
                             background-color: #EAF2FF;
@@ -336,7 +442,7 @@ import { watch } from 'fs';
                         width: 0px;
                         padding: 0px;
                         margin: 0px;
-                        transition: width .3s;
+                        transition: width .2s;
                         overflow: hidden;
                     }
                 }
@@ -370,7 +476,39 @@ import { watch } from 'fs';
 
     .floor-2 {
         display: flex;
+        flex-direction: row;
         align-items: center;
+        height: 45px;
+        justify-content: center;;
+
+        .floor-2-container {
+            display: flex;
+            justify-content: bewteen;
+            color: #71777C;
+            font-size: 14px;
+            .tabs-lv2 {
+                display: flex;
+                .item {
+                    margin: 0 10px;
+                    &:hover {
+                        cursor: pointer;
+                        color: #1E80FF;
+                    }
+                    & .activate {
+                        color: #1E80FF;
+                    }
+                }
+            }
+            .tabs-manager {
+                margin-left: 250px;
+                &:hover {
+                    cursor: pointer;
+                    color: #1E80FF;
+                }
+            }
+
+            
+        }
     }
 }
 </style>
