@@ -2,17 +2,17 @@
     <div class="author-mini-info">
         <div class="avatar">
             <img
-                src="https://p6-passport.byteacctimg.com/img/user-avatar/a6aee7df076585022b660b0f45700463~300x300.image"
+                src="https://p26-passport.byteacctimg.com/img/user-avatar/61130727b6e6bf9ed813434aeaed8ac3~300x300.image"
                 alt=""
                 class="lazy avatar avatar"
             />
         </div>
         <div class="basic-info">
-            <div class="author-name">奥里给</div>
-            <div class="time">233</div>
+            <div class="author-name">CUGGZ</div>
+            <div class="time">公众号：前端充电宝</div>
         </div>
         <div class="favour">
-            <el-button>点击关注</el-button>
+            <el-button>+关注</el-button>
         </div>
     </div>
 </template>
@@ -25,6 +25,7 @@ export default {};
 .author-mini-info {
     display: flex;
     align-items: center;
+    margin: 5px 32px;
 
     .avatar {
         width: 40px;

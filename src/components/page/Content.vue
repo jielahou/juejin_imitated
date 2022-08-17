@@ -1,19 +1,24 @@
 <template>
-<div class="markdown-body">
-  <my-markdown v-highlight></my-markdown>
+<div class="markdown-body" id="content">
 </div>
 </template>
 
 <script>
-
-import myMarkdown from './test.md'
-
+import { marked } from 'marked'
+import content from '../../mock/Article.js'
+//highlight
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css' //样式
 
 export default {
-    components: {
-        myMarkdown,
-    },
-
+    mounted() {
+      let mainContent = document.getElementById('content');
+      mainContent.innerHTML = marked.parse(content);
+      let blocks = mainContent.querySelectorAll('pre code');
+        blocks.forEach((block)=>{
+          hljs.highlightBlock(block)
+        });
+    }
 
 }
 </script>
@@ -198,8 +203,8 @@ table tr th {
 p {
   font-size: 16px;
   line-height: 1.75em;
-  padding-right: 0.5em; 
-  padding-left: 0.5em;
+  /* padding-right: 0.5em; 
+  padding-left: 0.5em; */
 }
 
 strong, b{color:#BF360C;} 

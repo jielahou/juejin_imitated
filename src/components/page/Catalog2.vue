@@ -2,7 +2,7 @@
 <template>
     <div class="catalog-box">
         <div class="title-box">目录</div>
-        <div class="item-box">
+        <div class="item-box" id="item-box">
             <div v-for="item in catalogData" :key="item.id" :class="['item', item.isActivate ? 'activate' : '', 'level-' + item.level]" @click="goto(item)">
                 <div class="label"></div>
                 <div class="text">{{item.title}}</div>
@@ -16,22 +16,26 @@
         data() {
             return {
                 catalogData: [],
-                busy: false
+                busy: false,
+                allItem: 0,
+                currItem: 0,
             }
         },
         mounted() {
             let passage = document.querySelector('.left-column')
             console.log(passage)
             let headers = Array.from(passage.querySelectorAll("h1, h2")); //获取所有标签为h1，h2的节点
-            headers.forEach((item) => {
+            headers.forEach((item, index) => {
                 this.catalogData.push({
                         title: item.innerHTML,
                         id: item.id,
                         level: Number.parseInt(item.localName.slice(1)),
-                        isActivate: false
+                        isActivate: false,
+                        index: index
                     })
             });
-            console.log(this.catalogData)
+            // console.log(this.catalogData)
+            this.allItem = this.catalogData.length;
 
             window.addEventListener('scroll', this.scrollListener)
         },
@@ -40,15 +44,15 @@
         },
         methods: {
             goto(item) {
-                //根据elementui组件特性来取id
-                const clickedId =Number.parseInt(item.id.slice(item.id.indexOf('-')+1, ));
                 const windowTop = document.body.getBoundingClientRect().top;
-                const toTopDistance = document.getElementById(this.catalogData[clickedId].id).getBoundingClientRect().top;
+                const toTopDistance = document.getElementById(item.id).getBoundingClientRect().top;
                 console.log(toTopDistance)
                 window.scrollTo({
                 top: toTopDistance - windowTop,
-                behavior: 'auto'
+                behavior: 'smooth'
                 })
+                this.currItem = item.index;
+                this.scrollListener();
             },
             scrollListener() {
                 //不能一个劲监听
@@ -89,9 +93,22 @@
                         }
                         // document.getElementsByClassName('el-tabs__active-bar is-right')[0].setAttribute('style', `height: 40px; transform: translateY(${actualHighlightTitle*40}px);`);
                         this.catalogData[indexOfActivate].isActivate = true
+                        this.currItem = indexOfActivate;
                         break;
                     }
                 }
+
+                //下面实现：active项始终显示在可视区内
+                //前5个，后5个，距离锁死就可以了
+                let itemBox = document.getElementById('item-box');
+                if(this.currItem < 5){
+                    itemBox.scrollTop = 0;
+                }else if(this.currItem > this.allItem - 5){
+                    itemBox.scrollTop = 45 * (this.allItem - 5);
+                }else{
+                    itemBox.scrollTop = 45 * (this.currItem - 5);
+                }
+                
                 this.busy = false;
             },
         },
@@ -122,7 +139,7 @@
         margin: 0 20px;
     }
     .item-box {
-        height: 600px;
+        height: 360px;
         overflow-y: scroll;
         scrollbar-face-color: #E4E6EB;
         .item {

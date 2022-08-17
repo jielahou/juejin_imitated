@@ -1,6 +1,7 @@
 <template>
     <div class="main-content">
         <div class="left-column">
+            <div class="title">起一个好听的标题很重要</div>
             <AuthorMiniInfo></AuthorMiniInfo>
             <Content></Content>
         </div>
@@ -14,15 +15,12 @@
 <script>
 import Content from "./Content.vue";
 import AuthorMiniInfo from "./AuthorMiniInfo.vue";
-import Catalog from "./Catalog.vue";
-import { nextTick } from "vue";
 import Aside from "./Aside.vue";
 
 export default {
     components: {
     Content,
     AuthorMiniInfo,
-    Catalog,
     Aside
 },
     data() {
@@ -117,6 +115,14 @@ export default {
         background-color: #fff;
         border: 5px solid #fff;
         border-radius: 3px;
+
+        .title {
+            margin: 10px 32px 32px 32px;
+            color: #252933;
+            font-size: 25px;
+            font-weight: 600;
+            font-family: -apple-system,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial!important;
+        }
     }
 
     .right-column {
