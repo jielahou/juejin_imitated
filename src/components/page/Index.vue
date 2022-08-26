@@ -82,9 +82,10 @@ export default {
 .main-content {
     position: relative;
     width: 960px;
-    margin: 70px auto;
-    .left-column {
-        width: 700px;
+    margin: 120px auto;
+	
+	.left-column {
+		width: 700px;
     }
 
     .right-column {
