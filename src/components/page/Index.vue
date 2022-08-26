@@ -1,10 +1,11 @@
 <template>
     <div class="main-content">
+        <MyTopNav :idActivated="0"></MyTopNav>
         <div class="left-column">
             <ul class="infinite-list" ref="list">
                 <EntryList
-                    v-for="item in articles"
-                    :key="item.article.title"
+                    v-for="(item, i) in articles"
+                    :key="i" 
                     :article="item.article"
                     :author="item.author"
                 />
@@ -22,12 +23,14 @@
 import EntryList from './EntryList.vue';
 import IndexList from '../../mock/IndexList.js'
 import IndexAside from './IndexAside.vue'
+import MyTopNav from '../MyNav/MyTopNav.vue';
 
 export default {
     components: {
-        EntryList,
-        IndexAside
-    },
+    EntryList,
+    IndexAside,
+    MyTopNav
+},
     data() {
         return {
             busy: false,
@@ -35,7 +38,7 @@ export default {
             loading: false,
             articles: [
                 
-            ],
+            ]
         };
     },
     methods: {
@@ -48,7 +51,7 @@ export default {
                 this.articles = this.articles.concat(this.articles);
                 this.loading = false;
             }, 2000);
-        },
+        }
     },
     mounted() {
         this.articles = IndexList;
@@ -57,17 +60,15 @@ export default {
             if (that.busy) {
                 return;
             }
+            // console.log(that.busy)
             that.busy = true;
             setTimeout(() => {
                 const bottom = that.$refs.list.getBoundingClientRect().bottom; //list元素底部到屏幕顶部的距离
                 const windowHeight = window.innerHeight; //获取窗口高度
-                const distance = 70; //设置阈值为70px，因为设置了一个margin-bottom
+                const distance = 300; // 阈值
                 if (Math.abs(bottom - windowHeight) < distance) {
-                    setTimeout(() => {
-                        that.articles = that.articles.concat(that.articles);
-                        that.busy = false;
-                    }, 2000);
-                    
+                    that.articles = that.articles.concat(that.articles);
+                    that.busy = false;
                 }else{
                     that.busy = false;
                 }

@@ -84,7 +84,7 @@
                 for (let i = 0; i < allNum; i++) {
                     console.log(headers[i].getBoundingClientRect().top)
                     if (headers[i].getBoundingClientRect().top > 110 && headers[i].getBoundingClientRect().top < 130) {
-                        console.log("1111111111111111111")
+                        // console.log("1111111111111111111")
                         this.catalogData.forEach(item => item.isActivate = false)
                         let indexOfActivate = i;
                         if(flag){

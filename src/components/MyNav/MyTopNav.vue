@@ -175,7 +175,7 @@
         mounted() {
             window.addEventListener("scroll", this.setScrollTop)
 
-            if(this.idActivate !== -1) {
+            if(this.idActivated !== -1) {
                 this.idActivate = this.idActivated
                 this.tabsLv1Info[this.idActivate].isActivate = true
             }

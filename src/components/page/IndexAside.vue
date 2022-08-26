@@ -44,7 +44,7 @@ export default {
     },
     mounted() {
         this.getRelevantArticles();
-		this.getUserInfo();
+		// this.getUserInfo();
 		this.height = document.querySelector('.left-column').getBoundingClientRect().height + 'px'
     },
     methods: {

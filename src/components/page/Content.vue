@@ -1,5 +1,7 @@
 <template>
-<div class="markdown-body" id="content">
+<div>
+  <MyTopNav></MyTopNav>
+  <div class="markdown-body" id="content"></div>
 </div>
 </template>
 
@@ -8,18 +10,19 @@ import { marked } from 'marked'
 import content from '../../mock/Article.js'
 //highlight
 import hljs from 'highlight.js';
-import 'highlight.js/styles/github.css' //样式
+import 'highlight.js/styles/github.css'
+import MyTopNav from '../MyNav/MyTopNav.vue'; //样式
 
 export default {
     mounted() {
-      let mainContent = document.getElementById('content');
-      mainContent.innerHTML = marked.parse(content);
-      let blocks = mainContent.querySelectorAll('pre code');
-        blocks.forEach((block)=>{
-          hljs.highlightBlock(block)
+        let mainContent = document.getElementById("content");
+        mainContent.innerHTML = marked.parse(content);
+        let blocks = mainContent.querySelectorAll("pre code");
+        blocks.forEach((block) => {
+            hljs.highlightBlock(block);
         });
-    }
-
+    },
+    components: { MyTopNav }
 }
 </script>
 
